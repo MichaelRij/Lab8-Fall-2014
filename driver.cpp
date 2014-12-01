@@ -27,15 +27,22 @@ int main () {
     mem2=mem1+mem1;
     mem1.dump();
     mem2.dump();
-    if (mem1+mem1==mem2)cout<<"hippopotamus"<<endl;*/
-memory A(100);  // memory with 100 locations using constructor
+    if (mem1+mem1==mem2)cout<<"hippopotamus"<<endl;
+*/
+  memory A(100);  // memory with 100 locations using constructor
 
                  
   memory B;    
-  for (int i =0; i<50; i++)
-     B[i] = 5;          // set first 50 locations to 5
 
-  A = B;                    
+  for (int i =0; i<50; i++){
+     B[i] = 5;          // set first 50 locations to 5
+	cout<<i<<": "<<B[i]<<endl;
+  }
+	cout<<33<<": "<<B[33]<<endl;
+
+  A = B; 
+B.dump(); 
+A.dump();                  
   if ( A == B ) cout << " A is equal to B"<<endl;
       else cout << " A is not equal to B"<<endl;
 
@@ -44,12 +51,12 @@ memory A(100);  // memory with 100 locations using constructor
       else cout << " A is not equal to B"<<endl;
 
 
-cout << A;     /* this dumps all of A */
-A.dump();       /* this also dumps all of A */
+cout << A;     // this dumps all of A 
+A.dump();       // this also dumps all of A 
 
 memory C = A;  
-C = C + A;     /* addition*/
-cout << C;     /* dumps C, or you can use C.dump() until you are ready to write this */
+C = C + A;     // addition
+cout << C;     // dumps C, or you can use C.dump() until you are ready to write this 
 
 
     return 0;

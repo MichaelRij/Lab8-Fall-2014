@@ -10,45 +10,34 @@ Functions will be in a seperate linked file
 
     
 
-    memory::memory(int length=100){//construct memory space of specified length in words
-	mem.resize(length);
-	
-    }
-
-    memory::memory(){   //construct memory space of default length
-	memory(0);
+    memory::memory(int length){//construct memory space of specified length in words
+		mem.resize(length);
 	
     }
 
     memory::memory(const memory &m){   //construct memory space of default length
-	int size=((memory &)m).getCap();
-	mem.resize(size);
-	for(int i =0;i<size;i++){
-	    mem[i]=m.mem[i];
-	}
+		int size=((memory &)m).getCap();
+		mem.resize(size);
+		for(int i =0;i<size;i++){
+			mem[i]=m.mem[i];
+		}
     }
 
     int memory::storeInt(int loc,int val){//place first int in location of second 
 				  	  //returns a negative if theres an error
-	if(loc<0) return -1;
-	if(loc+1>mem.capacity()){
-cout<<"resize"<<endl;
-	dump(0,10);
-	    mem.resize(loc+1);
-	dump(0,10);
-cout<<"resize"<<endl;
-	}
-	mem[loc] = val;
-	return 0;
-	
-	
+		if(loc<0) return -1;
+		if(loc>=mem.capacity()){
+	    	mem.resize(loc+10);
+		}
+		mem[loc] = val;
+		return 0;
     }
 
     int memory::getInt(int loc) const{//takes the value from a given memory location returns a 
 				//negative if theres an error
-	if(loc<0)return -1;
-	if(loc>mem.capacity())return -1;
-	return mem[loc];
+		if(loc<0)return -1;
+		if(loc>mem.capacity())return -1;
+		return mem[loc];
 	
     }
 
@@ -75,9 +64,7 @@ cout<<"resize"<<endl;
 	printf("      ");
 	for(int s=0; s<numCol; s++)
 	    printf("%6d", s);
-cout<<"survive";
 	printf("\n");
-cout<<"survive";
 
 	for (int i = (startLoc/numCol)*numCol; i<endLoc; i+=numCol){//integer division to drop to 										//nearest 10
 		printf("%5d: ", i);
@@ -93,9 +80,11 @@ cout<<"survive";
 	
     }
 ///////////////////////////////////////////////////////////////////////////////////////////
-    int& memory::operator[](int a){
-	storeInt(a,0);
-	return mem[a];
+    int& memory::operator[](int loc){
+		/*if(loc>=mem.capacity()){
+	    	mem.resize(loc+10);
+		}*/
+	return mem[loc];
     }
     const int memory::operator[](int a)const{
 	return getInt(a);

@@ -26,8 +26,7 @@ private:
     vector<int> mem;
 
 public:
-    explicit memory(int);//construct memory space of specified length
-    memory();   //construct memory space of default length
+    memory(int length=100);//construct memory space of specified length
     memory(const memory &);//construct memory as a deep copy of another memory
 
     int getCap(){return mem.capacity();}
