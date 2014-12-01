@@ -36,13 +36,10 @@ int main () {
 
   for (int i =0; i<50; i++){
      B[i] = 5;          // set first 50 locations to 5
-	cout<<i<<": "<<B[i]<<endl;
   }
-	cout<<33<<": "<<B[33]<<endl;
 
   A = B; 
-B.dump(); 
-A.dump();                  
+               
   if ( A == B ) cout << " A is equal to B"<<endl;
       else cout << " A is not equal to B"<<endl;
 

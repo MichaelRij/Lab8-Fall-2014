@@ -43,76 +43,79 @@ Functions will be in a seperate linked file
 
     int memory::blockCopy(int source,int dest,int length){//start memory location, dest memory loc, length
 
-	if(dest+length>mem.capacity())return -1;
+		if(dest+length>mem.capacity())return -1;
 
-	vector<int> tmp(length);
+		vector<int> tmp(length);
 
-	for(int i = 0; i<length; i++){//copy to a small array
-	    tmp[i]=mem[i+source];
-	}
-	for(int i = 0; i<length; i++){//copy to the old array
-	    mem[i+dest]=tmp[i];
-	}
+		for(int i = 0; i<length; i++){//copy to a small array
+			tmp[i]=mem[i+source];
+		}
+		for(int i = 0; i<length; i++){//copy to the old array
+			mem[i+dest]=tmp[i];
+		}
 
 	return 0;
     }
 
     void memory::dump(int startLoc,int endLoc) const{// dumps specified start location to end location
 	
-	int numCol = 10;//set up 0-9 index
+		int numCol = 10;//set up 0-9 index
 	
-	printf("      ");
-	for(int s=0; s<numCol; s++)
-	    printf("%6d", s);
-	printf("\n");
-
-	for (int i = (startLoc/numCol)*numCol; i<endLoc; i+=numCol){//integer division to drop to 										//nearest 10
-		printf("%5d: ", i);
-    		for(int a=i; a<numCol+i; a++){
-		    printf("%05d ",mem[a]);
-		}
+		printf("      ");
+		for(int s=0; s<numCol; s++)
+			printf("%6d", s);
 		printf("\n");
-	}
+
+		for (int i = (startLoc/numCol)*numCol; i<endLoc; i+=numCol){//integer division to drop to 										//nearest 10
+			printf("%5d: ", i);
+				for(int a=i; a<numCol+i; a++){
+				printf("%05d ",mem[a]);
+			}
+			printf("\n");
+		}
     }
 
     void memory::dump() const{// dumps all 
-	dump(0,mem.capacity());
+		dump(0,mem.capacity());
 	
     }
 ///////////////////////////////////////////////////////////////////////////////////////////
-    int& memory::operator[](int loc){
-		/*if(loc>=mem.capacity()){
-	    	mem.resize(loc+10);
-		}*/
+    int& memory::operator[](int loc){// allows the user to a memory cell
+
 	return mem[loc];
     }
-    const int memory::operator[](int a)const{
+
+    const int memory::operator[](int a)const{// allows the user to get a memory cell
 	return getInt(a);
     }
-    memory memory::operator+(memory m){// adds another memory to this one individually
+
+    memory memory::operator+(memory m){// adds this memory to another in a new one and returns that third one
 
 	int num=mem.capacity();
-	memory r = memory(num);
+		memory r = memory(num);
 
-	for (int i=0;i<mem.capacity();i++){
-	    r[i]=mem[i]+m[i];
-	}
+		for (int i=0;i<mem.capacity();i++){
+			r[i]=mem[i]+m[i];
+		}
 	return r;
     }
-    bool memory::operator==(memory m){
-	for(int i=0;i<mem.capacity();i++){
-	    if(mem[i]!=m[i])return false;
-	}
+
+    bool memory::operator==(memory m){// returns true only if every cell of memory is the same
+		for(int i=0;i<mem.capacity();i++){
+			if(mem[i]!=m[i])return false;
+		}
 	return true;
     }
-    void memory::operator=(memory m){
-	int num=mem.capacity();
-	for(int i=0;i<num;i++){
-	    mem[i]=m[i];
-	}
+
+    void memory::operator=(memory m){//copies every cell into this memory
+		int num=mem.capacity();
+		for(int i=0;i<num;i++){
+			mem[i]=m[i];
+		}
     }
-    ostream& operator<<(ostream &s, const memory &m){
-	m.dump();//(memory & (m))
+
+    ostream& operator<<(ostream &s, const memory &m){// dumps all cells
+		m.dump();//(memory & (m))
 	return s;
     }
     
